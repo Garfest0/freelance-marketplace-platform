@@ -74,4 +74,11 @@ export class ProposalsService {
             order: { id: 'DESC' }
         });
     }
+
+    async findAll(): Promise<Proposal[]> {
+        return this.proposalsRepository.find({
+            relations: ['job', 'freelancer'],
+            order: { id: 'DESC' }
+        });
+    }
 }

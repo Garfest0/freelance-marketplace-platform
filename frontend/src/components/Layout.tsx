@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, LogOut, Menu, Briefcase, FileText, User } from 'lucide-react';
+import { LayoutDashboard, LogOut, Menu, Briefcase, FileText, User, Shield } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
 
@@ -29,6 +29,7 @@ export default function Layout() {
         { icon: Briefcase, label: 'İş İlanları', path: '/jobs' },
         ...(user?.role === 'FREELANCER' ? [{ icon: FileText, label: 'Tekliflerim', path: '/proposals' }] : []),
         ...(user?.role === 'CLIENT' ? [] : []),
+        ...(user?.role === 'ADMIN' ? [{ icon: Shield, label: 'Admin Paneli', path: '/admin' }] : []), // Add Admin Link
 
         { icon: User, label: 'Profilim', path: '/profile' },
     ];

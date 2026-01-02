@@ -31,7 +31,7 @@ export class Proposal {
     })
     status: ProposalStatus;
 
-    @ManyToOne(() => Job, (job) => job.proposals)
+    @ManyToOne(() => Job, (job) => job.proposals, { onDelete: 'CASCADE' })
     job: Job;
 
     @ManyToOne(() => User, (user) => user.proposals)
