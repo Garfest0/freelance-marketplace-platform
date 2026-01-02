@@ -20,6 +20,12 @@ export class ProposalsController {
     }
 
     @UseGuards(AuthGuard('jwt'))
+    @Patch(':id/reject')
+    reject(@Param('id') id: string, @Body('reason') reason: string) {
+        return this.proposalsService.reject(+id, reason);
+    }
+
+    @UseGuards(AuthGuard('jwt'))
     @Get('job/:jobId')
     findByJob(@Param('jobId') jobId: string) {
         return this.proposalsService.findByJob(+jobId);

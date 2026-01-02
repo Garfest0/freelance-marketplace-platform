@@ -37,6 +37,16 @@ export class ProposalsService {
         return proposal;
     }
 
+    async reject(id: number, reason: string): Promise<Proposal> {
+        const proposal = await this.proposalsRepository.findOne({ where: { id } });
+        if (!proposal) throw new Error('Proposal not found');
+
+        proposal.status = ProposalStatus.REJECTED;
+        proposal.rejectionReason = reason;
+
+        return this.proposalsRepository.save(proposal);
+    }
+
     async create(createProposalDto: CreateProposalDto, freelancer: any): Promise<Proposal> {
         console.log('Creating proposal:', createProposalDto);
         console.log('Freelancer data:', freelancer);

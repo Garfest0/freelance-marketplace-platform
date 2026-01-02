@@ -18,6 +18,9 @@ export class Proposal {
 
 
 
+    @Column('text', { nullable: true })
+    rejectionReason: string;
+
     @Column('text')
     coverLetter: string;
 

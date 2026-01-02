@@ -24,6 +24,12 @@ export default function JobDetail() {
     const [editJob, setEditJob] = useState({ title: '', description: '', budget: '', category: '', level: '' });
     const [updating, setUpdating] = useState(false);
 
+    // Reject Modal State
+    const [showRejectModal, setShowRejectModal] = useState(false);
+    const [rejectReason, setRejectReason] = useState('');
+    const [selectedProposalId, setSelectedProposalId] = useState<number | null>(null);
+    const [rejecting, setRejecting] = useState(false);
+
     useEffect(() => {
         const userStr = localStorage.getItem('user');
         if (userStr) {
@@ -122,6 +128,31 @@ export default function JobDetail() {
         } finally {
             setUpdating(false);
         }
+    };
+
+    const handleRejectProposal = async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!selectedProposalId) return;
+
+        setRejecting(true);
+        try {
+            await api.patch(`/proposals/${selectedProposalId}/reject`, { reason: rejectReason });
+            alert('Teklif reddedildi.');
+            setShowRejectModal(false);
+            setRejectReason('');
+            fetchProposals();
+        } catch (error) {
+            console.error('Reject failed', error);
+            alert('Reddetme işlemi başarısız.');
+        } finally {
+            setRejecting(false);
+        }
+    };
+
+    const openRejectModal = (proposalId: number) => {
+        setSelectedProposalId(proposalId);
+        setRejectReason('');
+        setShowRejectModal(true);
     };
 
     // Initialize edit form when opening modal
@@ -273,11 +304,16 @@ export default function JobDetail() {
                                         </span>
                                     ) : job.status === 'OPEN' && (
                                         <>
-                                            <Button variant="outline" className="text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200">Reddet</Button>
+                                            <Button variant="outline" className="text-red-600 hover:bg-red-50 hover:text-red-700 border-red-200" onClick={() => openRejectModal(prop.id)}>Reddet</Button>
                                             <Button className="bg-green-600 hover:bg-green-700 text-white" onClick={() => handleAcceptProposal(prop.id)}>Kabul Et</Button>
                                         </>
                                     )}
                                 </div>
+                                {prop.rejectionReason && (
+                                    <div className="mt-3 p-3 bg-red-50 text-red-700 text-sm rounded-lg">
+                                        <strong>Red Nedeni:</strong> {prop.rejectionReason}
+                                    </div>
+                                )}
                             </div>
                         ))
                     )}
@@ -353,6 +389,40 @@ export default function JobDetail() {
                                 <div className="pt-4 border-t border-gray-100 flex justify-end gap-3">
                                     <Button type="button" variant="outline" onClick={() => setShowEditModal(false)}>Vazgeç</Button>
                                     <Button type="submit" isLoading={updating}>Kaydet</Button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Rejection Modal */}
+            {showRejectModal && (
+                <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                    <div className="bg-white rounded-xl shadow-xl max-w-md w-full">
+                        <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center">
+                            <h3 className="text-xl font-bold text-gray-900">Teklifi Reddet</h3>
+                            <button onClick={() => setShowRejectModal(false)} className="p-2 hover:bg-gray-100 rounded-full transition-colors">
+                                <X className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                            </button>
+                        </div>
+                        <div className="p-6">
+                            <form onSubmit={handleRejectProposal} className="space-y-4">
+                                <div>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Red Nedeni</label>
+                                    <textarea
+                                        className="w-full rounded-md border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-red-500 min-h-[100px]"
+                                        placeholder="Freelancer'a neden reddettiğinizi açıklayın (Opsiyonel ama önerilir)."
+                                        value={rejectReason}
+                                        onChange={(e) => setRejectReason(e.target.value)}
+                                        required
+                                    />
+                                </div>
+                                <div className="flex justify-end gap-3 pt-2">
+                                    <Button type="button" variant="outline" onClick={() => setShowRejectModal(false)}>İptal</Button>
+                                    <Button type="submit" isLoading={rejecting} className="bg-red-600 hover:bg-red-700 text-white border-transparent">
+                                        Teklifi Reddet
+                                    </Button>
                                 </div>
                             </form>
                         </div>
