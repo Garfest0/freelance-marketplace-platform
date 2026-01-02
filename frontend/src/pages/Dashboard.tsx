@@ -131,7 +131,7 @@ export default function Dashboard() {
                                                     <span className="text-indigo-600 font-medium">{item.proposals?.length || 0} Teklif</span>
                                                 </div>
                                             </div>
-                                            <Link to={`/ jobs / ${item.id} `}>
+                                            <Link to={`/jobs/${item.id}`}>
                                                 <Button variant="outline" className="text-xs">Yönet</Button>
                                             </Link>
                                         </>

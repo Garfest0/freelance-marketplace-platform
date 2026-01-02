@@ -114,10 +114,10 @@ export default function JobListing() {
                                         <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
                                             {job.category}
                                         </span>
-                                        <span className={`px - 2.5 py - 0.5 rounded - full text - xs font - medium ${job.level === 'EXPERT' ? 'bg-purple-50 text-purple-700' :
+                                        <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${job.level === 'EXPERT' ? 'bg-purple-50 text-purple-700' :
                                             job.level === 'INTERMEDIATE' ? 'bg-orange-50 text-orange-700' :
                                                 'bg-green-50 text-green-700'
-                                            } `}>
+                                            }`}>
                                             {job.level}
                                         </span>
                                     </div>
@@ -142,7 +142,7 @@ export default function JobListing() {
                                         </span>
                                     </div>
                                 </div>
-                                <Link to={`/ jobs / ${job.id} `}>
+                                <Link to={`/jobs/${job.id}`}>
                                     <Button variant="outline" className="border-indigo-200 text-indigo-700 hover:bg-indigo-50">
                                         Detaylar
                                     </Button>
