@@ -6,7 +6,7 @@ import { Users, Briefcase, Trash2, Shield } from 'lucide-react';
 export default function AdminDashboard() {
     const [stats, setStats] = useState({ users: 0, jobs: 0 });
     const [users, setUsers] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
+
 
     useEffect(() => {
         fetchData();
@@ -26,7 +26,7 @@ export default function AdminDashboard() {
         } catch (error) {
             console.error('Admin data fetch failed', error);
         } finally {
-            setLoading(false);
+
         }
     };
 
