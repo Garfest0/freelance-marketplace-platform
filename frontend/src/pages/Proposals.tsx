@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
-import { FileText, Clock, CheckCircle, XCircle } from 'lucide-react';
+import { Clock, DollarSign, FileText } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function Proposals() {

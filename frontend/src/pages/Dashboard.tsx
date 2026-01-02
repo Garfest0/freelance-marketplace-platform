@@ -1,8 +1,9 @@
+
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
-import { Plus, Briefcase, Clock, DollarSign, User, X, LayoutDashboard } from 'lucide-react';
+import { Briefcase, LayoutDashboard, Plus, X } from 'lucide-react';
 import { Input } from '../components/ui/Input';
 
 export default function Dashboard() {
@@ -55,7 +56,7 @@ export default function Dashboard() {
             console.error('Failed to create job', error);
             const message = error.response?.data?.message;
             const errorText = Array.isArray(message) ? message.join(', ') : (message || 'İlan oluşturulamadı.');
-            alert(`Hata: ${errorText}`);
+            alert(`Hata: ${errorText} `);
         }
     };
 
@@ -130,7 +131,7 @@ export default function Dashboard() {
                                                     <span className="text-indigo-600 font-medium">{item.proposals?.length || 0} Teklif</span>
                                                 </div>
                                             </div>
-                                            <Link to={`/jobs/${item.id}`}>
+                                            <Link to={`/ jobs / ${item.id} `}>
                                                 <Button variant="outline" className="text-xs">Yönet</Button>
                                             </Link>
                                         </>

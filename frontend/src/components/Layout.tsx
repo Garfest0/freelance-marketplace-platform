@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Briefcase, FileText, LogOut, Menu, X, User, Shield } from 'lucide-react';
+import { LayoutDashboard, LogOut, Menu, Briefcase, FileText, User } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
 

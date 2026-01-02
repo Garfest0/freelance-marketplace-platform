@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
-import { Users, Briefcase, Trash2, Shield, AlertTriangle } from 'lucide-react';
+import { Users, Briefcase, Trash2, Shield } from 'lucide-react';
 
 export default function AdminDashboard() {
     const [stats, setStats] = useState({ users: 0, jobs: 0 });
     const [users, setUsers] = useState<any[]>([]);
-    const [activeTab, setActiveTab] = useState<'users' | 'jobs'>('users');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -100,8 +99,8 @@ export default function AdminDashboard() {
                                     <td className="px-6 py-4 text-gray-500">{user.email}</td>
                                     <td className="px-6 py-4">
                                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${user.role === 'ADMIN' ? 'bg-red-100 text-red-800' :
-                                                user.role === 'CLIENT' ? 'bg-blue-100 text-blue-800' :
-                                                    'bg-green-100 text-green-800'
+                                            user.role === 'CLIENT' ? 'bg-blue-100 text-blue-800' :
+                                                'bg-green-100 text-green-800'
                                             }`}>
                                             {user.role}
                                         </span>
