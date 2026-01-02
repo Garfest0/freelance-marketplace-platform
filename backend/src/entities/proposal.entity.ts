@@ -34,6 +34,6 @@ export class Proposal {
     @ManyToOne(() => Job, (job) => job.proposals, { onDelete: 'CASCADE' })
     job: Job;
 
-    @ManyToOne(() => User, (user) => user.proposals)
+    @ManyToOne(() => User, (user) => user.proposals, { onDelete: 'CASCADE' })
     freelancer: User;
 }

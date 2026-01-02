@@ -85,7 +85,7 @@ export class Job {
     })
     level: JobLevel;
 
-    @ManyToOne(() => User, (user) => user.postedJobs)
+    @ManyToOne(() => User, (user) => user.postedJobs, { onDelete: 'CASCADE' })
     client: User;
 
     @OneToMany(() => Proposal, (proposal) => proposal.job)
