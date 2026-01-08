@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
-import { User as UserIcon } from 'lucide-react';
+
 
 export default function Profile() {
     const [user, setUser] = useState<any>(null);

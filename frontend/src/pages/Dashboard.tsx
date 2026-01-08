@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
-import { Briefcase, LayoutDashboard, Plus, X } from 'lucide-react';
+import { Briefcase, Plus, X } from 'lucide-react';
 import { Input } from '../components/ui/Input';
 
 export default function Dashboard() {
