@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import api from '../services/api';
 import { Button } from '../components/ui/Button';
-import { User as UserIcon, Save } from 'lucide-react';
+import { User as UserIcon } from 'lucide-react';
 
 export default function Profile() {
     const [user, setUser] = useState<any>(null);
@@ -71,7 +71,6 @@ export default function Profile() {
         <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
             <div className="px-6 py-4 border-b border-gray-200 flex justify-between items-center bg-gray-50">
                 <h1 className="text-xl font-bold text-gray-900 flex items-center">
-                    <UserIcon className="mr-2 h-5 w-5" />
                     Profilim
                 </h1>
             </div>
@@ -104,20 +103,61 @@ export default function Profile() {
                     {user?.role === 'FREELANCER' && (
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-2">Yetenekler</label>
-                            <div className="flex flex-wrap gap-2">
-                                {skills.map(skill => (
-                                    <button
-                                        key={skill.id}
-                                        type="button"
-                                        onClick={() => toggleSkill(skill.id)}
-                                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${formData.skillIds.includes(skill.id)
-                                            ? 'bg-indigo-600 text-white'
-                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                            }`}
-                                    >
-                                        {skill.name}
-                                    </button>
-                                ))}
+
+                            {/* Selected Skills Chips */}
+                            <div className="flex flex-wrap gap-2 mb-3">
+                                {formData.skillIds.map(id => {
+                                    const skill = skills.find(s => s.id === id);
+                                    if (!skill) return null;
+                                    return (
+                                        <span key={id} className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                                            {skill.name}
+                                            <button
+                                                type="button"
+                                                onClick={() => toggleSkill(id)}
+                                                className="ml-2 inline-flex items-center justify-center h-4 w-4 rounded-full text-indigo-400 hover:text-indigo-600 focus:outline-none"
+                                            >
+                                                ×
+                                            </button>
+                                        </span>
+                                    );
+                                })}
+                            </div>
+
+                            {/* Input for adding new skills */}
+                            <div className="relative">
+                                <input
+                                    type="text"
+                                    className="w-full rounded-md border border-gray-300 p-3 text-sm focus:ring-2 focus:ring-indigo-500"
+                                    placeholder="Yetenek ekle (Örn: React, Photoshop) ve Enter'a bas..."
+                                    onKeyDown={async (e) => {
+                                        if (e.key === 'Enter') {
+                                            e.preventDefault();
+                                            const val = e.currentTarget.value.trim();
+                                            if (!val) return;
+
+                                            // Check if already in all skills list
+                                            let skill = skills.find(s => s.name.toLowerCase() === val.toLowerCase());
+
+                                            if (!skill) {
+                                                // Create new skill
+                                                try {
+                                                    const res = await api.post('/skills', { name: val });
+                                                    skill = res.data;
+                                                    setSkills(prev => [...prev, skill!]);
+                                                } catch (err) {
+                                                    console.error("Failed to create skill", err);
+                                                    return;
+                                                }
+                                            }
+
+                                            if (skill && !formData.skillIds.includes(skill.id)) {
+                                                toggleSkill(skill.id);
+                                            }
+                                            e.currentTarget.value = '';
+                                        }
+                                    }}
+                                />
                             </div>
                         </div>
                     )}
@@ -126,7 +166,6 @@ export default function Profile() {
 
 
                         <Button type="submit" isLoading={saving}>
-                            <Save className="h-4 w-4 mr-2" />
                             Kaydet
                         </Button>
                     </div>

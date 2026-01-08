@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Post, Body } from '@nestjs/common';
 import { SkillsService } from './skills.service';
 
 @Controller('skills')
@@ -8,5 +8,10 @@ export class SkillsController {
     @Get()
     findAll() {
         return this.skillsService.findAll();
+    }
+
+    @Post()
+    create(@Body('name') name: string) {
+        return this.skillsService.create(name);
     }
 }

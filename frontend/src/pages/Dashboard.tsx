@@ -65,7 +65,6 @@ export default function Dashboard() {
             <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-                        <LayoutDashboard className="mr-3 h-6 w-6 text-indigo-600" />
                         Kontrol Paneli
                     </h1>
                     <p className="text-gray-500 mt-1">

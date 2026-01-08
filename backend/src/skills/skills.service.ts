@@ -23,4 +23,13 @@ export class SkillsService implements OnModuleInit {
     findAll() {
         return this.skillsRepository.find();
     }
+
+    async create(name: string) {
+        const existing = await this.skillsRepository.findOne({ where: { name } });
+        if (existing) {
+            return existing;
+        }
+        const skill = this.skillsRepository.create({ name });
+        return this.skillsRepository.save(skill);
+    }
 }

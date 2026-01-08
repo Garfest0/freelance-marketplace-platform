@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://freelance-marketplace-platform-j8m2.onrender.com', // Production Backend URL
+    baseURL: 'http://localhost:3000', // Local Backend URL
     headers: {
         'Content-Type': 'application/json',
     },

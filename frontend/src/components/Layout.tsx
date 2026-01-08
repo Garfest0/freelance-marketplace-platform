@@ -4,6 +4,7 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, LogOut, Menu, Briefcase, FileText, User, Shield } from 'lucide-react';
 import { Button } from '../components/ui/Button';
 import { cn } from '../utils/cn';
+import { Logo } from './Logo';
 
 export default function Layout() {
     const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -51,9 +52,8 @@ export default function Layout() {
             )}>
                 <div className="h-full flex flex-col">
                     <div className="h-16 flex items-center px-6 border-b border-gray-200">
-                        <Link to="/dashboard" className="flex items-center">
-                            <Briefcase className="h-8 w-8 text-indigo-600 mr-2" />
-                            <span className="text-xl font-bold text-gray-900">WorkFlow</span>
+                        <Link to="/dashboard">
+                            <Logo className="w-8 h-8" />
                         </Link>
                     </div>
 
@@ -102,8 +102,8 @@ export default function Layout() {
                     <button onClick={() => setSidebarOpen(true)} className="text-gray-500 hover:text-gray-700">
                         <Menu className="h-6 w-6" />
                     </button>
-                    <Link to="/dashboard">
-                        <span className="ml-4 text-lg font-bold text-gray-900">WorkFlow</span>
+                    <Link to="/dashboard" className="ml-4">
+                        <Logo className="w-8 h-8" />
                     </Link>
                 </header>
 

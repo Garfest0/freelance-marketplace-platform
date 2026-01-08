@@ -27,7 +27,6 @@ export default function Proposals() {
         <div className="max-w-4xl mx-auto">
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900 flex items-center">
-                    <FileText className="mr-3 h-6 w-6 text-indigo-600" />
                     Tekliflerim
                 </h1>
                 <p className="text-gray-500 mt-1">Yaptığınız başvuruların takibi.</p>

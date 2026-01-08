@@ -26,6 +26,35 @@ export default function JobListing() {
         }
     };
 
+    const categoryMap: Record<string, string> = {
+        WEB_DEVELOPMENT: 'Web Geliştirme',
+        MOBILE_DEVELOPMENT: 'Mobil Uygulama',
+        GAME_DEVELOPMENT: 'Oyun Geliştirme',
+        AI_DATA_SCIENCE: 'Yapay Zeka & Veri',
+        DEVOPS_CLOUD: 'DevOps & Bulut',
+        GRAPHIC_DESIGN: 'Grafik Tasarım',
+        UI_UX_DESIGN: 'UI/UX Tasarım',
+        VIDEO_ANIMATION: 'Video & Animasyon',
+        ILLUSTRATION: 'İllüstrasyon',
+        DIGITAL_MARKETING: 'Dijital Pazarlama',
+        SEO_SEM: 'SEO & SEM',
+        SOCIAL_MEDIA: 'Sosyal Medya',
+        CONTENT_WRITING: 'İçerik Yazarlığı',
+        TRANSLATION: 'Çeviri',
+        TECHNICAL_WRITING: 'Teknik Yazarlık',
+        ADMIN_SUPPORT: 'Asistanlık & Destek',
+        ENGINEERING: 'Mühendislik',
+        LEGAL: 'Hukuk',
+        FINANCE: 'Finans',
+        OTHER: 'Diğer'
+    };
+
+    const levelMap: Record<string, string> = {
+        ENTRY: 'Başlangıç',
+        INTERMEDIATE: 'Orta Seviye',
+        EXPERT: 'Uzman'
+    };
+
     const filteredJobs = jobs.filter(job => {
         const matchesSearch = job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
             job.description.toLowerCase().includes(searchTerm.toLowerCase());
@@ -112,13 +141,13 @@ export default function JobListing() {
                                 <div>
                                     <div className="flex items-center gap-2 mb-2">
                                         <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-700">
-                                            {job.category}
+                                            {categoryMap[job.category] || job.category}
                                         </span>
                                         <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${job.level === 'EXPERT' ? 'bg-purple-50 text-purple-700' :
                                             job.level === 'INTERMEDIATE' ? 'bg-orange-50 text-orange-700' :
                                                 'bg-green-50 text-green-700'
                                             }`}>
-                                            {job.level}
+                                            {levelMap[job.level] || job.level}
                                         </span>
                                     </div>
                                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-indigo-600 transition-colors">
